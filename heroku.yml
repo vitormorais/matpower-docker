@@ -1,5 +1,9 @@
-version: '3'
-services:
-  sut:
-    image: matpower/matpower-desktop:${CACHE_TAG}
-    command: matpower_docker_tests.sh
+build:
+  docker:
+    web: Dockerfile
+run:
+  web: bundle exec puma -C config/puma.rb
+  worker:
+    command:
+      - python myworker.py
+    image: web
